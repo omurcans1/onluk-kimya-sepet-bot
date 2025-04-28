@@ -17,6 +17,14 @@ export class GeminiService {
 
   async generateResponse(prompt: string): Promise<GeminiResponse> {
     try {
+      if (!this.apiKey || this.apiKey === "YOUR_API_KEY_HERE") {
+        console.log("API anahtarı tanımlanmamış");
+        return {
+          text: "Sistem yapılandırması tamamlanmamış. Lütfen yönetici ile iletişime geçin.",
+          error: "API key not provided"
+        };
+      }
+
       const response = await fetch(`${GEMINI_API_ENDPOINT}?key=${this.apiKey}`, {
         method: 'POST',
         headers: {
@@ -37,10 +45,17 @@ export class GeminiService {
       });
 
       if (!response.ok) {
-        throw new Error('API isteği başarısız oldu');
+        const errorData = await response.json();
+        console.error("Gemini API Hata Detayı:", errorData);
+        throw new Error(`API isteği başarısız oldu: ${response.status}`);
       }
 
       const data = await response.json();
+      
+      if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts || !data.candidates[0].content.parts[0]) {
+        throw new Error('Geçersiz API yanıtı formatı');
+      }
+      
       return {
         text: data.candidates[0].content.parts[0].text
       };

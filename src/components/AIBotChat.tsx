@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -22,8 +23,8 @@ const INITIAL_MESSAGES: Message[] = [
   },
 ];
 
-// Bu aşamada API anahtarını kullanıcıdan alıyoruz
-const geminiService = new GeminiService("YOUR_API_KEY_HERE");
+// API key'i gerçek bir key ile değiştirmelisiniz
+const geminiService = new GeminiService("AIzaSyBshBZTIuz4h4SklyKi5XberpwvGv85CKQ");
 
 const AIBotChat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
@@ -72,6 +73,15 @@ const AIBotChat: React.FC = () => {
       setMessages((prev) => [...prev, botResponse]);
     } catch (error) {
       console.error('Bot yanıt hatası:', error);
+      
+      const errorResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        sender: 'bot',
+        text: "Üzgünüm, şu anda teknik bir sorun yaşıyorum. Lütfen daha sonra tekrar deneyiniz.",
+        timestamp: new Date(),
+      };
+      
+      setMessages((prev) => [...prev, errorResponse]);
     } finally {
       setIsThinking(false);
     }
