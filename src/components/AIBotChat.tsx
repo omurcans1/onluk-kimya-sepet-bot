@@ -1,13 +1,10 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useCart } from '@/context/CartContext';
-
-// Bu yapay zekalı sohbet botu şimdilik sabit yanıtlar verecek
-// Daha sonra Gemini API ile entegre edilecek
+import { GeminiService } from '@/services/geminiService';
 
 interface Message {
   id: string;
@@ -25,6 +22,9 @@ const INITIAL_MESSAGES: Message[] = [
   },
 ];
 
+// Bu aşamada API anahtarını kullanıcıdan alıyoruz
+const geminiService = new GeminiService("YOUR_API_KEY_HERE");
+
 const AIBotChat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [inputMessage, setInputMessage] = useState('');
@@ -33,7 +33,7 @@ const AIBotChat: React.FC = () => {
   const { cartItems, getTotalPrice } = useCart();
 
   const totalPrice = getTotalPrice();
-  const discountedTotal = totalPrice * 0.95; // %5 indirim
+  const discountedTotal = totalPrice * 0.95;
 
   useEffect(() => {
     scrollToBottom();
@@ -43,33 +43,7 @@ const AIBotChat: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const generateBotResponse = (userMessage: string): string => {
-    const lowerMessage = userMessage.toLowerCase();
-    
-    if (lowerMessage.includes('fiyat') || lowerMessage.includes('indirim') || lowerMessage.includes('ucuz')) {
-      return `Sepetinizde toplam ${totalPrice.toLocaleString('tr-TR')} ₺ değerinde ürün bulunuyor. Size özel %5 indirim yaparak ${discountedTotal.toLocaleString('tr-TR')} ₺'ye düşürebilirim. Bu fırsat sadece bugüne özel! Hemen siparişinizi onaylamak ister misiniz?`;
-    }
-    
-    if (lowerMessage.includes('teslimat') || lowerMessage.includes('kargo')) {
-      return 'Siparişleriniz 1-3 iş günü içerisinde kargoya verilir. 5000₺ üzeri siparişlerde kargo ücretsizdir.';
-    }
-
-    if (lowerMessage.includes('ödeme') || lowerMessage.includes('kredi') || lowerMessage.includes('havale')) {
-      return 'Ödeme seçeneklerimiz arasında havale, EFT ve kredi kartı bulunmaktadır. Kredi kartına 3 taksit imkanı sunuyoruz.';
-    }
-
-    if (lowerMessage.includes('kalite') || lowerMessage.includes('garanti') || lowerMessage.includes('sertifika')) {
-      return 'Tüm ürünlerimiz TSE ve ISO standartlarına uygun olarak üretilmektedir. Kaliteden ödün vermeden en iyi hizmeti sunmayı prensip ediniyoruz. Ürünlerimiz kalite kontrol süreçlerinden geçerek size ulaştırılır.';
-    }
-
-    if (lowerMessage.includes('merhaba') || lowerMessage.includes('selam')) {
-      return 'Merhaba! Size nasıl yardımcı olabilirim? Ürünlerimizle ilgili detaylı bilgi almak veya sipariş vermek için buradayım.';
-    }
-
-    return 'Sepetinizdeki ürünler için en uygun fiyatı sizin için hazırladım. Onluk Kimya olarak kaliteli ürünleri uygun fiyatlarla sunmaktan gurur duyuyoruz. Başka sorunuz var mı?';
-  };
-
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (inputMessage.trim() === '') return;
 
     const newUserMessage: Message = {
@@ -83,18 +57,24 @@ const AIBotChat: React.FC = () => {
     setInputMessage('');
     setIsThinking(true);
 
-    // Simüle edilmiş bot yanıtı gecikmesi
-    setTimeout(() => {
+    try {
+      const response = await geminiService.generateResponse(
+        `Sepetteki toplam tutar: ${totalPrice}TL.\n${inputMessage}`
+      );
+
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
         sender: 'bot',
-        text: generateBotResponse(inputMessage),
+        text: response.text,
         timestamp: new Date(),
       };
 
       setMessages((prev) => [...prev, botResponse]);
+    } catch (error) {
+      console.error('Bot yanıt hatası:', error);
+    } finally {
       setIsThinking(false);
-    }, 1000);
+    }
   };
 
   return (
