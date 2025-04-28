@@ -1,5 +1,6 @@
 
 import { toast } from "sonner";
+import { products } from "@/data/products";
 
 const GEMINI_API_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
@@ -25,6 +26,18 @@ export class GeminiService {
         };
       }
 
+      // Ürün bilgilerini hazırlama
+      const productInfo = products.map(product => {
+        return {
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          price: product.price,
+          category: product.category,
+          details: product.details
+        };
+      });
+
       const response = await fetch(`${GEMINI_API_ENDPOINT}?key=${this.apiKey}`, {
         method: 'POST',
         headers: {
@@ -33,12 +46,24 @@ export class GeminiService {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Sen profesyonel bir endüstriyel kimyasallar satış temsilcisisin. 
-              Müşterinin talebini dikkatlice dinle ve uygun öneriler sun. 
-              Fiyatlar konusunda pazarlık yapabilirsin ama %5'ten fazla indirim yapma.
-              Her zaman nazik ve profesyonel ol.
-              
-              Müşterinin mesajı: ${prompt}`
+              text: `Sen Onluk Kimya'nın satış temsilcisisin. Adın Kimyager. Müşterilere kısa, net ve satışa yönelik cevaplar vermelisin.
+
+MARKA HIKAYESI:
+Onluk Kimya, 1985 yılında kurulan ve Türkiye'nin endüstriyel kimyasallar alanında öncü firmalarından biridir. Mükemmelliği ve inovasyonu temsil eden Onluk Kimya, müşterilerine yalnızca ürün değil, çözüm ortaklığı sunar. Firma, her zaman kaliteyi ve müşteri memnuniyetini ön planda tutarak büyümektedir.
+
+ÜRÜNLERIMIZ:
+${JSON.stringify(productInfo)}
+
+TALIMATLAR:
+1. Kısa ve öz cevaplar ver (maksimum 3-4 cümle).
+2. Her fırsatta müşteriye ürünleri öner.
+3. Müşterinin sorularını satış fırsatına çevir.
+4. Teknik sorulara kısa ve net yanıt ver, ardından hemen satışa yönlendir.
+5. Kibarlığı ve profesyonelliği koru ama gereksiz uzun açıklamalardan kaçın.
+6. Fiyat indirimi sorulduğunda maksimum %5 indirim yapabilirsin.
+7. Nakliye ücretsizdir ve 24 saat içinde teslimat yapılır.
+
+Müşterinin mesajı: ${prompt}`
             }]
           }]
         })

@@ -18,12 +18,11 @@ const INITIAL_MESSAGES: Message[] = [
   {
     id: '1',
     sender: 'bot',
-    text: "Merhaba! Ben Onluk Kimya'nın satış asistanı Kimyager. Sepetinizdeki ürünlerle ilgili sorularınızı yanıtlamaktan ve size en uygun fiyatı sunmaktan mutluluk duyarım. Size nasıl yardımcı olabilirim?",
+    text: "Merhaba! Ben Onluk Kimya'nın satış asistanı Kimyager. Size nasıl yardımcı olabilirim? Hangi endüstriyel kimyasal ürünlerimizle ilgileniyorsunuz?",
     timestamp: new Date(),
   },
 ];
 
-// API key'i gerçek bir key ile değiştirmelisiniz
 const geminiService = new GeminiService("AIzaSyBshBZTIuz4h4SklyKi5XberpwvGv85CKQ");
 
 const AIBotChat: React.FC = () => {
@@ -34,7 +33,6 @@ const AIBotChat: React.FC = () => {
   const { cartItems, getTotalPrice } = useCart();
 
   const totalPrice = getTotalPrice();
-  const discountedTotal = totalPrice * 0.95;
 
   useEffect(() => {
     scrollToBottom();
@@ -59,8 +57,13 @@ const AIBotChat: React.FC = () => {
     setIsThinking(true);
 
     try {
+      // Sepet bilgisini ve kullanıcı mesajını Gemini'ye iletiyoruz
+      const cartItemsInfo = cartItems.length > 0 
+        ? `Sepetteki ürünler: ${cartItems.map(item => `${item.product.name} (${item.quantity} adet)`).join(', ')}` 
+        : "Sepette henüz ürün yok.";
+      
       const response = await geminiService.generateResponse(
-        `Sepetteki toplam tutar: ${totalPrice}TL.\n${inputMessage}`
+        `${cartItemsInfo}\nToplam tutar: ${totalPrice}TL.\n\nMüşteri mesajı: ${inputMessage}`
       );
 
       const botResponse: Message = {
