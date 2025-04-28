@@ -20,7 +20,7 @@ const INITIAL_MESSAGES: Message[] = [
   {
     id: '1',
     sender: 'bot',
-    text: 'Merhaba! Ben Onluk Kimya'nın satış asistanı Kimyager. Sepetinizdeki ürünlerle ilgili sorularınızı yanıtlamaktan ve size en uygun fiyatı sunmaktan mutluluk duyarım. Size nasıl yardımcı olabilirim?',
+    text: "Merhaba! Ben Onluk Kimya'nın satış asistanı Kimyager. Sepetinizdeki ürünlerle ilgili sorularınızı yanıtlamaktan ve size en uygun fiyatı sunmaktan mutluluk duyarım. Size nasıl yardımcı olabilirim?",
     timestamp: new Date(),
   },
 ];
