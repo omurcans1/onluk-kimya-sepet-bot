@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, ArrowLeft, Check } from 'lucide-react';
@@ -7,7 +6,6 @@ import { Separator } from '@/components/ui/separator';
 import CartItem from '@/components/CartItem';
 import AIBotChat from '@/components/AIBotChat';
 import { useCart } from '@/context/CartContext';
-import Header from '@/components/Header';
 
 const Cart = () => {
   const { cartItems, getTotalPrice, clearCart } = useCart();
@@ -16,7 +14,6 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       
       <div className="bg-white border-b">
         <div className="container-wrapper py-3">

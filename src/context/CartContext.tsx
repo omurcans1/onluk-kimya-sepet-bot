@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 export interface Product {
@@ -8,6 +7,8 @@ export interface Product {
   description: string;
   price: number;
   image: string;
+  seoDescription?: string;
+  warning?: string;
   details?: {
     density?: string;
     purity?: string;

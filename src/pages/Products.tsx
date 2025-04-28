@@ -1,94 +1,49 @@
-
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getProductsByCategory, products } from '@/data/products';
-import ProductCard from '@/components/ProductCard';
-import Header from '@/components/Header';
-import { Search, Filter } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Product } from '@/context/CartContext';
+import React from "react"
+import { products } from "@/data/products"
+import { Button } from "@/components/ui/button"
+import { ShoppingCart } from "lucide-react"
 
 const Products = () => {
-  const { category } = useParams<{ category: string }>();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  
-  let categoryTitle = "Tüm Ürünler";
-  let categoryDescription = "Endüstriyel kimyasallar ve temizlik ürünleri";
-  
-  if (category === "hammadde") {
-    categoryTitle = "Endüstriyel Hammaddeler";
-    categoryDescription = "Kimya endüstrisi için yüksek kaliteli hammaddeler";
-  } else if (category === "temizlik") {
-    categoryTitle = "Temizlik Kimyasalları";
-    categoryDescription = "Profesyonel temizlik ve hijyen ürünleri";
-  }
-
-  useEffect(() => {
-    // Kategori filtresine göre ürünleri al
-    let productsToShow = category ? getProductsByCategory(category) : products;
-    
-    // Arama terimine göre filtrele
-    if (searchTerm) {
-      productsToShow = productsToShow.filter(product => 
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        product.description.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-    
-    setFilteredProducts(productsToShow);
-  }, [category, searchTerm]);
+  const category = "Konsantre Hijyenik Genel Temizleyiciler"
+  const filteredProducts = products.filter(p => p.category === category)
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      {/* Banner */}
-      <div className="bg-kimya-blue text-white py-12">
-        <div className="container-wrapper">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-white">{categoryTitle}</h1>
-          <p className="opacity-90">{categoryDescription}</p>
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-kimya-gray via-white to-blue-100">
+      <div className="bg-kimya-blue text-white py-14 shadow-lg mb-10">
+        <div className="container-wrapper text-center">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-3 tracking-tight">{category}</h1>
+          <p className="opacity-90 text-lg max-w-2xl mx-auto">Endüstriyel ve profesyonel alanlar için konsantre hijyenik genel temizleyiciler.</p>
         </div>
       </div>
-      
-      {/* Search & Filter */}
-      <div className="bg-white shadow-sm">
-        <div className="container-wrapper py-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-            <Input
-              type="text"
-              placeholder="Ürün ara..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-        </div>
-      </div>
-      
-      {/* Products Grid */}
-      <div className="flex-grow bg-kimya-gray py-8">
-        <div className="container-wrapper">
-          {filteredProducts.length > 0 ? (
-            <>
-              <p className="text-gray-600 mb-6">{filteredProducts.length} adet ürün bulundu</p>
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
+      <div className="container-wrapper pb-20">
+        <ul className="divide-y divide-kimya-gray/20 bg-white/80 rounded-xl shadow-md">
+          {filteredProducts.map(product => (
+            <li
+              key={product.id}
+              className="flex flex-col md:flex-row items-center md:items-stretch gap-4 py-6 px-4 md:px-8 hover:bg-blue-50/40 transition group cursor-pointer"
+              onClick={() => window.location.href = `/product/${product.id}`}
+              tabIndex={0}
+              onKeyDown={e => { if (e.key === 'Enter') window.location.href = `/product/${product.id}`; }}
+              role="button"
+              aria-label={`${product.name} detay sayfasına git`}
+            >
+              <div className="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-muted ring-1 ring-border flex items-center justify-center">
+                <img src={product.image} alt={product.name} className="object-cover w-full h-full" loading="lazy" />
               </div>
-            </>
-          ) : (
-            <div className="text-center py-12">
-              <h3 className="text-xl font-semibold mb-2">Ürün Bulunamadı</h3>
-              <p className="text-gray-500">Arama kriterlerinize uygun ürün bulunmamaktadır.</p>
-            </div>
-          )}
-        </div>
+              <div className="flex-1 flex flex-col justify-center md:justify-start">
+                <h2 className="text-lg font-semibold text-kimya-blue group-hover:underline group-hover:underline-offset-4 transition-all">{product.name}</h2>
+                <p className="text-gray-600 text-sm mt-1 mb-2 line-clamp-2">{product.description}</p>
+              </div>
+              <div className="flex flex-col items-center gap-2 min-w-[120px]">
+                <span className="font-bold text-kimya-blue text-lg">{product.price} TL</span>
+                <Button variant="outline" className="flex items-center gap-2">
+                  <ShoppingCart className="w-4 h-4" /> Sepete Ekle
+                </Button>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
-      
-      {/* Footer */}
       <footer className="bg-gray-900 text-white py-8 mt-auto">
         <div className="container-wrapper">
           <div className="border-t border-gray-800 pt-6 text-center">
@@ -99,7 +54,7 @@ const Products = () => {
         </div>
       </footer>
     </div>
-  );
-};
+  )
+}
 
-export default Products;
+export default Products

@@ -1,99 +1,40 @@
+import React from "react"
+import { Link, useLocation } from "react-router-dom"
+import { ShoppingCart, Home, Info, Phone, Briefcase } from "lucide-react"
 
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ShoppingCart, Menu, X, ChevronDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useCart } from '@/context/CartContext';
+const navItems = [
+  { name: "Anasayfa", path: "/", icon: <Home className="w-5 h-5 mr-1" /> },
+  { name: "Ürünler", path: "/products", icon: <Briefcase className="w-5 h-5 mr-1" /> },
+  { name: "Hakkımızda", path: "/about", icon: <Info className="w-5 h-5 mr-1" /> },
+  { name: "İletişim", path: "/contact", icon: <Phone className="w-5 h-5 mr-1" /> },
+  { name: "Sepet", path: "/cart", icon: <ShoppingCart className="w-5 h-5 mr-1" /> },
+]
 
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { cartItems } = useCart();
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
+const Header: React.FC = () => {
+  const location = useLocation()
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="container-wrapper py-4">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <div className="h-10 w-10 bg-kimya-blue rounded-md flex items-center justify-center mr-2">
-              <span className="text-white font-bold text-lg">10</span>
-            </div>
-            <span className="text-kimya-blue font-bold text-xl">Onluk Kimya</span>
-          </Link>
-
-          {/* Mobile Menu Button */}
-          <button className="md:hidden" onClick={toggleMenu}>
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="text-gray-700 hover:text-kimya-blue">Anasayfa</Link>
-            
-            {/* Ürünler Dropdown */}
-            <div className="relative">
-              <button 
-                className="text-gray-700 hover:text-kimya-blue flex items-center"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+    <header className="sticky top-0 z-40 w-full bg-white/90 backdrop-blur border-b border-gray-200 shadow-sm">
+      <nav className="container-wrapper flex items-center justify-between h-16">
+        <Link to="/" className="font-bold text-xl text-kimya-blue tracking-tight flex items-center gap-2">
+          <span>Onluk Kimya</span>
+        </Link>
+        <ul className="flex gap-2 md:gap-4 items-center">
+          {navItems.map(item => (
+            <li key={item.name}>
+              <Link
+                to={item.path}
+                className={`flex items-center px-3 py-2 rounded-md font-medium transition-colors duration-150 hover:bg-kimya-blue/10 hover:text-kimya-blue focus:outline-none focus:ring-2 focus:ring-kimya-blue/30 ${location.pathname === item.path ? "bg-kimya-blue/10 text-kimya-blue" : "text-gray-700"}`}
+                tabIndex={0}
               >
-                Ürünler <ChevronDown size={16} className="ml-1" />
-              </button>
-              
-              {isDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-50">
-                  <Link 
-                    to="/products/hammadde" 
-                    className="block px-4 py-2 hover:bg-gray-100"
-                    onClick={() => setIsDropdownOpen(false)}
-                  >
-                    Endüstriyel Hammaddeler
-                  </Link>
-                  <Link 
-                    to="/products/temizlik" 
-                    className="block px-4 py-2 hover:bg-gray-100"
-                    onClick={() => setIsDropdownOpen(false)}
-                  >
-                    Temizlik Kimyasalları
-                  </Link>
-                </div>
-              )}
-            </div>
-            
-            <Link to="/about" className="text-gray-700 hover:text-kimya-blue">Hakkımızda</Link>
-            <Link to="/contact" className="text-gray-700 hover:text-kimya-blue">İletişim</Link>
-          </nav>
-
-          {/* Cart Button */}
-          <Link to="/cart">
-            <Button variant="outline" className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              {cartItems.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartItems.length}
-                </span>
-              )}
-            </Button>
-          </Link>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <nav className="md:hidden py-4 space-y-3 animate-fade-in">
-            <Link to="/" className="block text-gray-700 hover:text-kimya-blue py-1">Anasayfa</Link>
-            <Link to="/products/hammadde" className="block text-gray-700 hover:text-kimya-blue py-1">Endüstriyel Hammaddeler</Link>
-            <Link to="/products/temizlik" className="block text-gray-700 hover:text-kimya-blue py-1">Temizlik Kimyasalları</Link>
-            <Link to="/about" className="block text-gray-700 hover:text-kimya-blue py-1">Hakkımızda</Link>
-            <Link to="/contact" className="block text-gray-700 hover:text-kimya-blue py-1">İletişim</Link>
-          </nav>
-        )}
-      </div>
+                {item.icon}
+                <span className="hidden sm:inline">{item.name}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

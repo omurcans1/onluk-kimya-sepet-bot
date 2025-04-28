@@ -1,11 +1,9 @@
-
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProductById } from '@/data/products';
 import { Minus, Plus, ArrowLeft, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
-import Header from '@/components/Header';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/components/ui/use-toast';
 
@@ -21,7 +19,6 @@ const ProductDetail = () => {
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col">
-        <Header />
         <div className="flex-grow flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-2">Ürün Bulunamadı</h2>
@@ -53,7 +50,6 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       
       {/* Breadcrumb */}
       <div className="bg-white border-b">
@@ -170,6 +166,18 @@ const ProductDetail = () => {
                     </ul>
                   </div>
                 )}
+                
+                {/* SEO Açıklaması */}
+                <div className="border-t pt-6 pb-2">
+                  <h2 className="font-bold text-lg mb-2">Ürün Hakkında (SEO)</h2>
+                  <p className="text-gray-700 mb-2">{product.seoDescription}</p>
+                </div>
+                
+                {/* Uyarı Bilgisi */}
+                <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                  <h3 className="font-semibold text-yellow-800 mb-1">Dikkat!</h3>
+                  <p className="text-gray-700 text-sm">{product.warning}</p>
+                </div>
               </div>
             </div>
             

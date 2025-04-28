@@ -1,186 +1,123 @@
-
+// Yeni ürün veri yapısı: Kategoriler ve örnek ürünler
 import { Product } from "@/context/CartContext";
 
 export const products: Product[] = [
-  // Endüstriyel Hammaddeler Kategorisi
   {
-    id: "h1",
-    name: "Sodyum Hidroksit (NaOH)",
-    category: "hammadde",
-    description: "Endüstriyel saflıkta sodyum hidroksit (kostik soda), 10L bidon içerisinde.",
-    price: 1200,
-    image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?q=80&w=1887&auto=format&fit=crop",
-    details: {
-      density: "2.13 g/cm³",
-      purity: "%98",
-      packaging: "10L HDPE bidon",
-      applications: ["Sabun ve deterjan üretimi", "Kağıt hamuru işleme", "pH düzenleme", "Tekstil endüstrisi"],
-    },
+    id: "hijyenik-1",
+    name: "Ultra Konsantre Yüzey Temizleyici",
+    description: "Endüstriyel alanlar için güçlü, çevre dostu ve ekonomik yüzey temizleyici.",
+    price: 299,
+    image: "/placeholder.jpeg",
+    category: "Konsantre Hijyenik Genel Temizleyiciler",
+    seoDescription: "Ultra Konsantre Yüzey Temizleyici, endüstriyel alanlarda maksimum hijyen ve temizlik sağlar. Çevre dostu formülüyle ekonomik ve etkili bir çözüm sunar. Fabrika, depo, okul ve ofis gibi geniş alanlarda güvenle kullanılabilir.",
+    warning: "Kullanım öncesi ürün etiketini dikkatlice okuyunuz. Çocukların erişemeyeceği yerde saklayınız. Göz ile temasından kaçınınız ve temas halinde bol su ile yıkayınız."
   },
   {
-    id: "h2",
-    name: "Sülfürik Asit (H2SO4)",
-    category: "hammadde",
-    description: "Endüstriyel saflıkta sülfürik asit çözeltisi, yüksek konsantrasyon.",
-    price: 950,
-    image: "https://images.unsplash.com/photo-1616338667827-5c94ca0c79da?q=80&w=1936&auto=format&fit=crop",
-    details: {
-      density: "1.84 g/cm³",
-      purity: "%96",
-      packaging: "10L asit dayanımlı bidon",
-      applications: ["Akü üretimi", "Mineral işleme", "Metal temizleme", "Gübre üretimi"],
-    },
+    id: "hijyenik-2",
+    name: "Hijyenik Zemin Temizleme Solüsyonu",
+    description: "Ofis, okul ve hastaneler için hızlı etki eden, kalıntı bırakmayan zemin temizleyici.",
+    price: 249,
+    image: "/placeholder.jpeg",
+    category: "Konsantre Hijyenik Genel Temizleyiciler",
+    seoDescription: "Hijyenik Zemin Temizleme Solüsyonu, ofis, okul ve hastanelerde hızlı ve kalıntı bırakmayan temizlik için idealdir. Yüzeylerde hijyen ve parlaklık sağlar, profesyonel temizlik ihtiyaçlarını karşılar.",
+    warning: "Ürünü doğrudan cilt ile uzun süre temas ettirmeyiniz. Gıda maddelerinden uzak tutunuz. Göz ile temasında bol su ile yıkayınız."
   },
   {
-    id: "h3",
-    name: "Metanol (CH3OH)",
-    category: "hammadde",
-    description: "Yüksek saflıkta metil alkol, endüstriyel kullanım için.",
-    price: 850,
-    image: "https://plus.unsplash.com/premium_photo-1676325102583-0609fbc8a18b?q=80&w=1974&auto=format&fit=crop",
-    details: {
-      density: "0.792 g/cm³",
-      purity: "%99.8",
-      packaging: "10L güvenlik kapaklı bidon",
-      applications: ["Çözücü olarak", "Yakıt katkısı", "Kimyasal sentez", "Biyodizel üretimi"],
-    },
+    id: "hijyenik-3",
+    name: "Çok Amaçlı Konsantre Temizleyici",
+    description: "Mutfak, banyo ve tüm yüzeylerde güvenle kullanılabilen çok amaçlı temizlik ürünü.",
+    price: 199,
+    image: "/placeholder.jpeg",
+    category: "Konsantre Hijyenik Genel Temizleyiciler",
+    seoDescription: "Çok Amaçlı Konsantre Temizleyici, mutfak, banyo ve tüm yüzeylerde güvenle kullanılabilir. Güçlü formülüyle zorlu kirleri kolayca çıkarır ve hijyen sağlar.",
+    warning: "Kullanım sonrası ellerinizi bol su ile yıkayınız. Çocuklardan uzak tutunuz. Göz ile temasında bol su ile yıkayınız."
   },
   {
-    id: "h4",
-    name: "Hidroklorik Asit (HCl)",
-    category: "hammadde",
-    description: "Endüstriyel saflıkta hidroklorik asit çözeltisi.",
-    price: 780,
-    image: "https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?q=80&w=2070&auto=format&fit=crop",
-    details: {
-      density: "1.2 g/cm³",
-      purity: "%37",
-      packaging: "10L asit dayanımlı bidon",
-      applications: ["Metal yüzey işleme", "pH düzenleme", "Su arıtma", "Gıda işleme"],
-    },
+    id: "hijyenik-4",
+    name: "Konsantre Köpüklü Genel Temizleyici",
+    description: "Geniş alanlarda etkili, yoğun köpüklü ve ekonomik genel temizlik ürünü.",
+    price: 189,
+    image: "/placeholder.jpeg",
+    category: "Konsantre Hijyenik Genel Temizleyiciler",
+    seoDescription: "Konsantre Köpüklü Genel Temizleyici, geniş alanlarda yoğun köpük etkisiyle derinlemesine temizlik sunar. Endüstriyel ve ticari alanlarda hijyen için idealdir.",
+    warning: "Ürünü doğrudan güneş ışığından koruyunuz. Cilt ile uzun süreli temastan kaçınınız. Göz ile temasında bol su ile yıkayınız."
   },
   {
-    id: "h5",
-    name: "Etil Asetat (C4H8O2)",
-    category: "hammadde",
-    description: "Yüksek saflıkta etil asetat çözücüsü, laboratuvar ve endüstriyel kullanım için.",
-    price: 1050,
-    image: "https://images.unsplash.com/photo-1535932561002-564589fd2f2d?q=80&w=1964&auto=format&fit=crop",
-    details: {
-      density: "0.902 g/cm³",
-      purity: "%99.5",
-      packaging: "10L alev almaz bidon",
-      applications: ["Boya çözücüsü", "Vernik üretimi", "Laboratuvar reaktifi", "Parfümeri"],
-    },
+    id: "hijyenik-5",
+    name: "Konsantre Dezenfektanlı Çok Maksatlı Temizleyici",
+    description: "Hijyen gerektiren tüm yüzeylerde güvenle kullanılabilen, dezenfektan katkılı çok amaçlı temizleyici.",
+    price: 219,
+    image: "/placeholder.jpeg",
+    category: "Konsantre Hijyenik Genel Temizleyiciler",
+    seoDescription: "Konsantre Dezenfektanlı Çok Maksatlı Temizleyici, hijyen gerektiren tüm yüzeylerde etkili temizlik ve dezenfeksiyon sağlar. Çok amaçlı kullanımı ile zamandan tasarruf ettirir.",
+    warning: "Ürünü başka kimyasallarla karıştırmayınız. Cilt ile temasında bol su ile yıkayınız. Çocuklardan uzak tutunuz."
   },
   {
-    id: "h6",
-    name: "Formaldehit (CH2O)",
-    category: "hammadde",
-    description: "Stabilize edilmiş formaldehit çözeltisi, %37 konsantrasyonda.",
-    price: 890,
-    image: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=80&w=1969&auto=format&fit=crop",
-    details: {
-      density: "1.09 g/cm³",
-      purity: "%37",
-      packaging: "10L HDPE bidon",
-      applications: ["Reçine üretimi", "Kimyasal sentez", "Dezenfektan üretimi", "Tekstil endüstrisi"],
-    },
-  },
-
-  // Temizlik Kimyasalları Kategorisi
-  {
-    id: "t1",
-    name: "Endüstriyel Yağ Çözücü",
-    category: "temizlik",
-    description: "Güçlü formüllü alkali bazlı yağ ve gres çözücü, endüstriyel temizlik için idealdir.",
-    price: 680,
-    image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop",
-    details: {
-      density: "1.05 g/cm³",
-      purity: "Konsantre formül",
-      packaging: "10L HDPE bidon",
-      applications: ["Makine temizliği", "Zemin temizliği", "Ağır sanayi", "Gıda işleme alanları"],
-    },
+    id: "hijyenik-6",
+    name: "Konsantre Endüstriyel Bulaşık Sıvısı",
+    description: "Endüstriyel mutfaklar için güçlü yağ ve kir sökücü konsantre bulaşık deterjanı.",
+    price: 179,
+    image: "/placeholder.jpeg",
+    category: "Konsantre Hijyenik Genel Temizleyiciler",
+    seoDescription: "Konsantre Endüstriyel Bulaşık Sıvısı, endüstriyel mutfaklarda güçlü yağ ve kir sökücü etkisiyle hijyen sağlar. Ekonomik ve etkili temizlik için idealdir.",
+    warning: "Yutulması halinde derhal doktora başvurunuz. Cilt ile temasında bol su ile yıkayınız. Çocuklardan uzak tutunuz."
   },
   {
-    id: "t2",
-    name: "Köpük Kontrolü Ajanı",
-    category: "temizlik",
-    description: "Endüstriyel proseslerde köpük oluşumunu kontrol eden silikon bazlı ajan.",
-    price: 1450,
-    image: "https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=1974&auto=format&fit=crop",
-    details: {
-      density: "0.98 g/cm³",
-      purity: "%100",
-      packaging: "10L bidon",
-      applications: ["Tekstil işleme", "Kağıt üretimi", "Endüstriyel yıkama", "Atık su arıtma"],
-    },
+    id: "hijyenik-7",
+    name: "Konsantre Yüzey Dezenfektanı ve Mekân Parfümü",
+    description: "Yüzeyleri dezenfekte ederken hoş koku bırakan, çift etkili temizlik ürünü.",
+    price: 209,
+    image: "/placeholder.jpeg",
+    category: "Konsantre Hijyenik Genel Temizleyiciler",
+    seoDescription: "Konsantre Yüzey Dezenfektanı ve Mekân Parfümü, yüzeyleri dezenfekte ederken hoş bir koku bırakır. Çift etkili formülüyle temizlik ve ferahlık sağlar.",
+    warning: "Alerjik reaksiyonlara karşı dikkatli kullanınız. Göz ile temasında bol su ile yıkayınız. Çocuklardan uzak tutunuz."
   },
   {
-    id: "t3",
-    name: "Alkali Temizlik Çözeltisi",
-    category: "temizlik",
-    description: "Yüksek alkali içeren güçlü temizlik çözeltisi.",
-    price: 720,
-    image: "https://plus.unsplash.com/premium_photo-1681276697325-55ec0401f08c?q=80&w=1974&auto=format&fit=crop",
-    details: {
-      density: "1.12 g/cm³",
-      purity: "Konsantre formül",
-      packaging: "10L HDPE bidon",
-      applications: ["CIP sistemleri", "Gıda işleme ekipmanları", "Pastörizatörler", "Tank temizliği"],
-    },
+    id: "hijyenik-8",
+    name: "Konsantre Beyazlatıcı",
+    description: "Çamaşır ve yüzeylerde etkili, güçlü beyazlatıcı ve hijyen sağlayıcı.",
+    price: 159,
+    image: "/placeholder.jpeg",
+    category: "Konsantre Hijyenik Genel Temizleyiciler",
+    seoDescription: "Konsantre Beyazlatıcı, çamaşır ve yüzeylerde güçlü beyazlatıcı ve hijyen sağlayıcı olarak kullanılır. Zorlu lekeleri kolayca çıkarır.",
+    warning: "Ürünü başka temizlik ürünleriyle karıştırmayınız. Cilt ve göz ile temasında bol su ile yıkayınız. Çocuklardan uzak tutunuz."
   },
   {
-    id: "t4",
-    name: "Kireç ve Pas Sökücü",
-    category: "temizlik",
-    description: "Asit bazlı güçlü kireç, pas ve mineral birikinti sökücü.",
-    price: 830,
-    image: "https://images.unsplash.com/photo-1563453392212-326f5e854473?q=80&w=2070&auto=format&fit=crop",
-    details: {
-      density: "1.10 g/cm³",
-      purity: "Konsantre formül",
-      packaging: "10L asit dayanımlı bidon",
-      applications: ["Isı değiştirici temizliği", "Buhar kazanları", "Su sistemleri", "Metal yüzey temizliği"],
-    },
+    id: "hijyenik-9",
+    name: "Konsantre Kireç ve Yosun Önleyici",
+    description: "Kireç ve yosun oluşumunu önleyen, yüzeyleri koruyan konsantre ürün.",
+    price: 169,
+    image: "/placeholder.jpeg",
+    category: "Konsantre Hijyenik Genel Temizleyiciler",
+    seoDescription: "Konsantre Kireç ve Yosun Önleyici, yüzeylerde kireç ve yosun oluşumunu önler. Uzun süreli koruma ve temizlik sağlar.",
+    warning: "Kullanım sonrası yüzeyleri bol su ile durulayınız. Cilt ile temasında bol su ile yıkayınız. Çocuklardan uzak tutunuz."
   },
   {
-    id: "t5",
-    name: "Endüstriyel Dezenfektan",
-    category: "temizlik",
-    description: "Kuaterner amonyum bileşikleri içeren geniş spektrumlu dezenfektan.",
-    price: 950,
-    image: "https://plus.unsplash.com/premium_photo-1661781048862-e9467e8e522e?q=80&w=1974&auto=format&fit=crop",
-    details: {
-      density: "1.01 g/cm³",
-      purity: "%30 aktif madde",
-      packaging: "10L HDPE bidon",
-      applications: ["Gıda üretim alanları", "Sağlık tesisleri", "İlaç üretim alanları", "Genel sanitasyon"],
-    },
+    id: "hijyenik-10",
+    name: "Paslanmaz Parlatıcı",
+    description: "Paslanmaz yüzeylerde parlaklık ve koruma sağlayan özel formül.",
+    price: 149,
+    image: "/placeholder.jpeg",
+    category: "Konsantre Hijyenik Genel Temizleyiciler",
+    seoDescription: "Paslanmaz Parlatıcı, paslanmaz yüzeylerde parlaklık ve koruma sağlar. Endüstriyel ve ev kullanımı için uygundur.",
+    warning: "Ürünü doğrudan sıcak yüzeylere uygulamayınız. Cilt ve göz ile temasında bol su ile yıkayınız. Çocuklardan uzak tutunuz."
   },
   {
-    id: "t6",
-    name: "Solvent Bazlı Temizleyici",
-    category: "temizlik",
-    description: "Hızlı kuruyan, iz bırakmayan solvent bazlı yüzey temizleyici.",
-    price: 1150,
-    image: "https://images.unsplash.com/photo-1598387200977-03a27442d71f?q=80&w=1976&auto=format&fit=crop",
-    details: {
-      density: "0.89 g/cm³",
-      purity: "%99.9",
-      packaging: "10L metal bidon",
-      applications: ["Elektronik parça temizliği", "Hassas mekanik parçalar", "Baskı devre temizliği", "Optik ekipman"],
-    },
-  },
+    id: "hijyenik-11",
+    name: "Konsantre Pas ve Korozyon Önleyici",
+    description: "Metal yüzeylerde pas ve korozyonu önleyen, uzun ömürlü koruma sağlayan konsantre ürün.",
+    price: 189,
+    image: "/placeholder.jpeg",
+    category: "Konsantre Hijyenik Genel Temizleyiciler",
+    seoDescription: "Konsantre Pas ve Korozyon Önleyici, metal yüzeylerde pas ve korozyonu önler, uzun ömürlü koruma sağlar. Endüstriyel alanlarda güvenle kullanılabilir.",
+    warning: "Ürünü başka kimyasallarla karıştırmayınız. Cilt ve göz ile temasında bol su ile yıkayınız. Çocuklardan uzak tutunuz."
+  }
 ];
 
-// Ürünleri kategorilerine göre filtreleme yardımcı fonksiyonu
 export const getProductsByCategory = (category: string): Product[] => {
   return products.filter((product) => product.category === category);
 };
 
-// Bir ürünü ID'sine göre bulma yardımcı fonksiyonu
 export const getProductById = (id: string): Product | undefined => {
   return products.find((product) => product.id === id);
 };
